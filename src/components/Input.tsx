@@ -27,15 +27,19 @@ export default function Input<
   });
 
   return (
-    <>
-      <input {...field} />
-      <span style={{ color: "red" }}>
+    <span className="relative group">
+      <input
+        {...field}
+        aria-invalid={fieldState.invalid}
+        className="border rounded outline-0 px-2 mx-1 aria-invalid:border-red-400"
+      />
+      <span className='hidden group-has-[[aria-invalid="true"]]:block absolute mb-2 left-1/2 -translate-x-1/2 text-red-400 text-sm px-2 rounded-md whitespace-nowrap bg-gray-200'>
         {
           { required: "Required field", pattern: "Invalid email format" }[
             (fieldState.error?.type ?? "") as "required" | "pattern"
           ]
         }
       </span>
-    </>
+    </span>
   );
 }
