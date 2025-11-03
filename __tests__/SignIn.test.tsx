@@ -1,6 +1,15 @@
 import { act, fireEvent, screen } from "@testing-library/react";
 import { render } from "vitest-browser-react";
-import SignIn from "../src/SignIn";
+import SignInWithoutProvider from "../src/SignIn";
+import { Provider } from "../src/components/ui/provider";
+
+function SignIn(props: { onSubmit: (data: { email: string }) => void }) {
+  return (
+    <Provider>
+      <SignInWithoutProvider onSubmit={props.onSubmit}></SignInWithoutProvider>
+    </Provider>
+  );
+}
 
 test("shows form", () => {
   render(<SignIn onSubmit={vi.fn()}></SignIn>);
