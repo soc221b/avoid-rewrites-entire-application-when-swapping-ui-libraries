@@ -1,3 +1,7 @@
+import Button from "./components/Button";
+import Input from "./components/Input";
+import Label from "./components/Label";
+
 export default function SignIn(props: {
   onSubmit: (data: { email: string }) => void;
 }) {
@@ -9,12 +13,12 @@ export default function SignIn(props: {
         props.onSubmit({ email: data.get("email") as string });
       }}
     >
-      <label>
+      <Label>
         Email
-        <input type="email" name="email" required />
-      </label>
+        <Input type="email" name="email" required />
+      </Label>
 
-      <button>Submit</button>
+      <Button>Submit</Button>
     </form>
   );
 }
