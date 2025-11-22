@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm } from "@tanstack/react-form";
 import Button from "./components/Button";
 import Input from "./components/Input";
 import Label from "./components/Label";
@@ -6,15 +6,22 @@ import Label from "./components/Label";
 export default function SignIn(props: {
   onSubmit: (data: { email: string }) => void;
 }) {
-  const { control, handleSubmit } = useForm({
+  const form = useForm({
     defaultValues: { email: "" },
+    onSubmit: (data) => props.onSubmit(data.value),
   });
 
   return (
-    <form onSubmit={handleSubmit((data) => props.onSubmit(data))}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
+    >
       <Label>
         Email
-        <Input type="email" name="email" required control={control} />
+        <Input type="email" name="email" required form={form} />
       </Label>
 
       <Button>Submit</Button>
